@@ -1,10 +1,18 @@
 import React from 'react';
-import './App.css';
+import { Global } from './styled/Global';
+import { StyledBody } from './styled/App';
+import Sidebar from './components/Sidebar';
+import Chat from './components/Chat';
 
 const App = () => {
   return (
-    <div className='App'>
-      <h1>Hello, React!</h1>
+    <div>
+      <Global />
+
+      <StyledBody>
+        <Sidebar />
+        <Chat />
+      </StyledBody>
     </div>
   );
 };
