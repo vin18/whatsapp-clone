@@ -1,10 +1,53 @@
 import React from 'react';
-import { StyledSidebar } from '../styled/Sidebar';
+import { Avatar, IconButton } from '@material-ui/core';
+import {
+  SearchOutlined,
+  DonutLarge,
+  Chat,
+  MoreVert,
+} from '@material-ui/icons';
+
+import {
+  StyledSidebar,
+  StyledSidebarHeader,
+  StyledSidebarSearch,
+  StyledSidebarChats,
+  StyledSidebarHeaderRight,
+  StyledSidebarSearchContainer,
+} from '../styled/Sidebar';
+import SidebarChat from './SidebarChat';
 
 const Sidebar = () => {
   return (
     <StyledSidebar>
-      <h1>Sidebar</h1>
+      <StyledSidebarHeader>
+        <Avatar></Avatar>
+        <StyledSidebarHeaderRight>
+          <IconButton>
+            <DonutLarge />
+          </IconButton>
+          <IconButton>
+            <Chat />
+          </IconButton>
+          <IconButton>
+            <MoreVert />
+          </IconButton>
+        </StyledSidebarHeaderRight>
+      </StyledSidebarHeader>
+
+      <StyledSidebarSearch>
+        <StyledSidebarSearchContainer>
+          <SearchOutlined />
+          <input type='text' placeholder='Search or start new chat' />
+        </StyledSidebarSearchContainer>
+      </StyledSidebarSearch>
+
+      <StyledSidebarChats>
+        <SidebarChat addNewChat />
+        <SidebarChat />
+        <SidebarChat />
+        <SidebarChat />
+      </StyledSidebarChats>
     </StyledSidebar>
   );
 };

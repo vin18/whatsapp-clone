@@ -8,7 +8,7 @@ export const Global = createGlobalStyle`
   }
 
   * > .MuiSvgIcon-root {
-    font-size: 2.25rem !important;
+    font-size: 2.4rem !important;
 
   }
 
