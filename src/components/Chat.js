@@ -5,6 +5,10 @@ import {
   StyledChatHeader,
   StyledChatHeaderInfo,
   StyledChatHeaderRight,
+  StyledChatBody,
+  StyledChatMessage,
+  StyledChatName,
+  StyledChatTimestamp,
 } from '../styled/Chat';
 import {
   SearchOutlined,
@@ -43,6 +47,20 @@ const Chat = () => {
           </IconButton>
         </StyledChatHeaderRight>
       </StyledChatHeader>
+
+      <StyledChatBody>
+        <StyledChatMessage>
+          <StyledChatName>Vinit Raut</StyledChatName>
+          Hey, guys!
+          <StyledChatTimestamp>3:52pm</StyledChatTimestamp>
+        </StyledChatMessage>
+
+        <StyledChatMessage chatReceiver>
+          <StyledChatName>Vinit Raut</StyledChatName>
+          Hey, guys!
+          <StyledChatTimestamp>3:52pm</StyledChatTimestamp>
+        </StyledChatMessage>
+      </StyledChatBody>
     </StyledChat>
   );
 };
