@@ -17,19 +17,29 @@ import {
   MoreVert,
   InsertEmoticon,
 } from '@material-ui/icons';
+import { useParams } from 'react-router-dom';
+import db from '../firebase';
 
 const Chat = () => {
   const [seed, setSeed] = useState('');
   const [input, setInput] = useState('');
+  const [roomName, setRoomName] = useState('');
+  const { roomId } = useParams();
 
   useEffect(() => {
     setSeed(Math.floor(Math.random() * 5000));
-  }, []);
+  }, [roomId]);
+
+  useEffect(() => {
+    if (roomId) {
+      db.collection('rooms')
+        .doc(roomId)
+        .onSnapshot((snapshot) => setRoomName(snapshot.data().name));
+    }
+  }, [roomId]);
 
   const sendMessage = (e) => {
     e.preventDefault();
-    console.log(input);
-
     setInput('');
   };
 
@@ -41,7 +51,7 @@ const Chat = () => {
         />
 
         <StyledChatHeaderInfo>
-          <h3>Room name</h3>
+          <h3>{roomName}</h3>
           <p>Last seen at ...</p>
         </StyledChatHeaderInfo>
 

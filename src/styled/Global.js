@@ -28,4 +28,8 @@ export const Global = createGlobalStyle`
     'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
     'Helvetica Neue', sans-serif;
   }
+
+  a {
+    text-decoration: none;
+  }
 `;
