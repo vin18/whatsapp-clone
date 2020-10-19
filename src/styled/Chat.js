@@ -67,4 +67,32 @@ export const StyledChatTimestamp = styled.span`
   font-size: xx-small;
 `;
 
-export const StyledChatFooter = styled.div``;
+export const StyledChatFooter = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 6.2rem;
+  border-top: 1px solid lightgray;
+
+  & > .MuiSvgIcon-root {
+    margin: 1rem;
+    color: gray;
+  }
+
+  & > form {
+    flex: 1;
+    display: flex;
+
+    & > input {
+      flex: 1;
+      border-radius: 3rem;
+      padding: 1rem;
+      border: none;
+      outline: 0;
+    }
+
+    & > button {
+      display: none;
+    }
+  }
+`;
