@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Avatar, IconButton } from '@material-ui/core';
 import {
   SearchOutlined,
@@ -16,8 +16,22 @@ import {
   StyledSidebarSearchContainer,
 } from '../styled/Sidebar';
 import SidebarChat from './SidebarChat';
+import db from '../firebase';
 
 const Sidebar = () => {
+  const [rooms, setRooms] = useState([]);
+
+  useEffect(() => {
+    db.collection('rooms').onSnapshot((snapshot) =>
+      setRooms(
+        snapshot.docs.map((doc) => ({
+          id: doc.id,
+          data: doc.data(),
+        }))
+      )
+    );
+  }, []);
+
   return (
     <StyledSidebar>
       <StyledSidebarHeader>
@@ -44,9 +58,13 @@ const Sidebar = () => {
 
       <StyledSidebarChats>
         <SidebarChat addNewChat />
-        <SidebarChat />
-        <SidebarChat />
-        <SidebarChat />
+        {rooms.map((room) => (
+          <SidebarChat
+            key={room.id}
+            id={room.id}
+            name={room.data.name}
+          />
+        ))}
       </StyledSidebarChats>
     </StyledSidebar>
   );

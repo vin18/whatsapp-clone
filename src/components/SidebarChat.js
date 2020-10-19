@@ -4,8 +4,9 @@ import {
   StyledSidebarChat,
   StyledSidebarChatInfo,
 } from '../styled/SidebarChat';
+import db from '../firebase';
 
-const SidebarChat = ({ addNewChat }) => {
+const SidebarChat = ({ addNewChat, id, name }) => {
   const [seed, setSeed] = useState('');
 
   useEffect(() => {
@@ -13,10 +14,12 @@ const SidebarChat = ({ addNewChat }) => {
   }, []);
 
   const createChat = () => {
-    const roomName = prompt('Please enter name for chat');
+    const roomName = prompt('Please enter name for chat room');
 
     if (roomName) {
-      // TODO: Add room name in database
+      db.collection('rooms').add({
+        name: roomName,
+      });
     }
   };
 
@@ -27,7 +30,7 @@ const SidebarChat = ({ addNewChat }) => {
       />
 
       <StyledSidebarChatInfo>
-        <h2>Room name</h2>
+        <h2>{name}</h2>
         <p>Last message...</p>
       </StyledSidebarChatInfo>
     </StyledSidebarChat>
