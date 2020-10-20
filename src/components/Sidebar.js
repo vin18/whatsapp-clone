@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Avatar, IconButton } from '@material-ui/core';
 import {
   SearchOutlined,
@@ -17,9 +17,12 @@ import {
 } from '../styled/Sidebar';
 import SidebarChat from './SidebarChat';
 import db from '../firebase';
+import WhatsappContext from '../context/whatsappContext';
 
 const Sidebar = () => {
   const [rooms, setRooms] = useState([]);
+  const whatsappContext = useContext(WhatsappContext);
+  const { user } = whatsappContext;
 
   useEffect(() => {
     const unsunscribe = db
@@ -36,12 +39,12 @@ const Sidebar = () => {
     return () => {
       unsunscribe();
     };
-  }, []);
+  }, [user]);
 
   return (
     <StyledSidebar>
       <StyledSidebarHeader>
-        <Avatar></Avatar>
+        <Avatar src={user?.photoURL}></Avatar>
         <StyledSidebarHeaderRight>
           <IconButton>
             <DonutLarge />

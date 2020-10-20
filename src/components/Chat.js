@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Avatar, IconButton } from '@material-ui/core';
 import {
   StyledChat,
@@ -19,27 +19,46 @@ import {
 } from '@material-ui/icons';
 import { useParams } from 'react-router-dom';
 import db from '../firebase';
+import WhatsappContext from '../context/whatsappContext';
+import firebase from 'firebase';
 
 const Chat = () => {
   const [seed, setSeed] = useState('');
+  const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
-  const [roomName, setRoomName] = useState('');
+  const [roomName, setRoomName] = useState('Room Name');
   const { roomId } = useParams();
 
-  useEffect(() => {
-    setSeed(Math.floor(Math.random() * 5000));
-  }, [roomId]);
+  const whatsappContext = useContext(WhatsappContext);
+  const { user } = whatsappContext;
 
   useEffect(() => {
     if (roomId) {
       db.collection('rooms')
         .doc(roomId)
         .onSnapshot((snapshot) => setRoomName(snapshot.data().name));
+
+      db.collection('rooms')
+        .doc(roomId)
+        .collection('messages')
+        .orderBy('timestamp', 'asc')
+        .onSnapshot((snapshot) =>
+          setMessages(snapshot.docs.map((doc) => doc.data()))
+        );
     }
+  }, [roomId]);
+
+  useEffect(() => {
+    setSeed(Math.floor(Math.random() * 5000));
   }, [roomId]);
 
   const sendMessage = (e) => {
     e.preventDefault();
+    db.collection('rooms').doc(roomId).collection('messages').add({
+      message: input,
+      name: user.displayName,
+      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+    });
     setInput('');
   };
 
@@ -52,7 +71,12 @@ const Chat = () => {
 
         <StyledChatHeaderInfo>
           <h3>{roomName}</h3>
-          <p>Last seen at ...</p>
+          <p>
+            Last seen at{' '}
+            {new Date(
+              messages[messages.length - 1]?.timestamp?.toDate()
+            ).toUTCString()}
+          </p>
         </StyledChatHeaderInfo>
 
         <StyledChatHeaderRight>
@@ -69,17 +93,17 @@ const Chat = () => {
       </StyledChatHeader>
 
       <StyledChatBody>
-        <StyledChatMessage>
-          <StyledChatName>Vinit Raut</StyledChatName>
-          Hey, guys!
-          <StyledChatTimestamp>3:52pm</StyledChatTimestamp>
-        </StyledChatMessage>
-
-        <StyledChatMessage chatReceiver>
-          <StyledChatName>Vinit Raut</StyledChatName>
-          Hey, guys!
-          <StyledChatTimestamp>3:52pm</StyledChatTimestamp>
-        </StyledChatMessage>
+        {messages.map((message) => (
+          <StyledChatMessage
+            chatReceiver={Boolean(message.name === user.displayName)}
+          >
+            <StyledChatName>{message.name}</StyledChatName>
+            {message.message}
+            <StyledChatTimestamp>
+              {new Date(message.timestamp?.toDate()).toUTCString()}
+            </StyledChatTimestamp>
+          </StyledChatMessage>
+        ))}
       </StyledChatBody>
 
       <StyledChatFooter>

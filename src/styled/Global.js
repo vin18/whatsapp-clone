@@ -31,5 +31,6 @@ export const Global = createGlobalStyle`
 
   a {
     text-decoration: none;
+    color: #000;
   }
 `;

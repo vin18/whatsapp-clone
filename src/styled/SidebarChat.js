@@ -9,6 +9,10 @@ export const StyledSidebarChat = styled.div`
   &:hover {
     background-color: #ebebeb;
   }
+
+  a {
+    color: #000;
+  }
 `;
 
 export const StyledSidebarChatInfo = styled.div`
