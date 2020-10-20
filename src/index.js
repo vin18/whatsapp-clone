@@ -1,10 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
+import WhatsappState from './context/WhatsappState';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <WhatsappState>
+      <App />
+    </WhatsappState>
   </React.StrictMode>,
   document.getElementById('root')
 );
