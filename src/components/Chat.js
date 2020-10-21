@@ -16,6 +16,7 @@ import {
   AttachFile,
   MoreVert,
   InsertEmoticon,
+  Mic,
 } from '@material-ui/icons';
 import { useParams } from 'react-router-dom';
 import db from '../firebase';
@@ -95,6 +96,7 @@ const Chat = () => {
       <StyledChatBody>
         {messages.map((message) => (
           <StyledChatMessage
+            key={message.id}
             chatReceiver={Boolean(message.name === user.displayName)}
           >
             <StyledChatName>{message.name}</StyledChatName>
@@ -119,6 +121,7 @@ const Chat = () => {
             Send a message
           </button>
         </form>
+        <Mic />
       </StyledChatFooter>
     </StyledChat>
   );

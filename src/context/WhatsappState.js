@@ -5,7 +5,7 @@ import { SET_USER } from './types';
 
 const WhatsappState = (props) => {
   const initialState = {
-    user: null,
+    user: 'null',
   };
 
   const [state, dispatch] = useReducer(WhatsappReducer, initialState);

@@ -15,6 +15,17 @@ export const Global = createGlobalStyle`
   html {
     font-size: 62.5%;
     box-sizing: border-box;
+
+    @media  only screen and (max-width: 800px) {
+      font-size: 50%;
+    }
+
+    @media  only screen and (max-width: 480px) {
+      font-size: 35%;
+    }
+
+
+    
   }
 
   body {
@@ -26,8 +37,10 @@ export const Global = createGlobalStyle`
     line-height: 1.6;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
     'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
-    'Helvetica Neue', sans-serif;
+    'Helvetica Neue', sans-serif;   
   }
+
+
 
   a {
     text-decoration: none;

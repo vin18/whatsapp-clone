@@ -24,6 +24,14 @@ export const StyledChatHeaderInfo = styled.div`
 
   & > p {
     color: gray;
+
+    @media only screen and (max-width: 480px) {
+      display: none;
+    }
+
+    @media only screen and (max-width: 800px) {
+      display: none;
+    }
   }
 `;
 
@@ -31,6 +39,14 @@ export const StyledChatHeaderRight = styled.div`
   display: flex;
   justify-content: space-between;
   min-width: 10rem;
+
+  @media only screen and (max-width: 800px) {
+    min-width: 6rem;
+  }
+
+  @media only screen and (max-width: 480px) {
+    min-width: 3rem;
+  }
 `;
 
 export const StyledChatBody = styled.div`
@@ -60,6 +76,14 @@ export const StyledChatName = styled.span`
   top: -1.5rem;
   font-weight: 800;
   font-size: xx-small;
+
+  @media only screen and (max-width: 800px) {
+    top: -2rem;
+  }
+
+  @media only screen and (max-width: 480px) {
+    top: -2.75rem;
+  }
 `;
 
 export const StyledChatTimestamp = styled.span`
